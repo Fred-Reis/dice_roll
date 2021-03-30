@@ -3,6 +3,7 @@ package com.example.diceroller
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -27,11 +28,24 @@ class MainActivity : AppCompatActivity() {
     private fun rollDice() {
         // Create a new Dice object with 6 sides and roll it.
         val dice = Dice(6)
-        var diceRoll = dice.roll()
+        val rollResult = dice.roll()
+        val luckyNumber = 4
+
+
+        when (rollResult) {
+            luckyNumber -> Toast.makeText(this, "You Win!", Toast.LENGTH_SHORT).show()
+            1 -> Toast.makeText(this, "So sorry! You rolled a 1. Try again!", Toast.LENGTH_SHORT).show()
+            2 -> Toast.makeText(this, "Sadly, you rolled a 2. Try again!", Toast.LENGTH_SHORT).show()
+            3 -> Toast.makeText(this, "Unfortunately, you rolled a 3. Try again!", Toast.LENGTH_SHORT).show()
+            4 -> Toast.makeText(this, "No luck! You rolled a 4. Try again!", Toast.LENGTH_SHORT).show()
+            5 -> Toast.makeText(this, "Don't cry! You rolled a 5. Try again!", Toast.LENGTH_SHORT).show()
+            6 -> Toast.makeText(this, "Apologies! you rolled a 6. Try again!", Toast.LENGTH_SHORT).show()
+        }
+
 
         // Update the screen with the dice roll.
         val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = diceRoll.toString()
+        resultTextView.text = rollResult.toString()
     }
 }
 
