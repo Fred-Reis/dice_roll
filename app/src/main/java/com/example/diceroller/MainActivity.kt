@@ -2,8 +2,7 @@ package com.example.diceroller
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -20,32 +19,37 @@ class MainActivity : AppCompatActivity() {
 
         // Call the method on click from the button
         rollButton.setOnClickListener { rollDice() }
+
+        rollDice()
     }
 
     /**
     * Roll the dice  and update the screen with the result.
     */
     private fun rollDice() {
-        // Create a new Dice object with 6 sides and roll it.
+        // Create a new Dice object with 6 sides and roll the dice.
         val dice = Dice(6)
         val rollResult = dice.roll()
-        val luckyNumber = 4
+        // val luckyNumber = 4
 
+        // find the ImageView in the layout
+        val diceImage: ImageView = findViewById(R.id.imageView)
 
-        when (rollResult) {
-            luckyNumber -> Toast.makeText(this, "You Win!", Toast.LENGTH_SHORT).show()
-            1 -> Toast.makeText(this, "So sorry! You rolled a 1. Try again!", Toast.LENGTH_SHORT).show()
-            2 -> Toast.makeText(this, "Sadly, you rolled a 2. Try again!", Toast.LENGTH_SHORT).show()
-            3 -> Toast.makeText(this, "Unfortunately, you rolled a 3. Try again!", Toast.LENGTH_SHORT).show()
-            4 -> Toast.makeText(this, "No luck! You rolled a 4. Try again!", Toast.LENGTH_SHORT).show()
-            5 -> Toast.makeText(this, "Don't cry! You rolled a 5. Try again!", Toast.LENGTH_SHORT).show()
-            6 -> Toast.makeText(this, "Apologies! you rolled a 6. Try again!", Toast.LENGTH_SHORT).show()
+        // Determine which drawable resource ID to use based on the dice roll
+        val drawableResource = when (rollResult) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
         }
 
+        // Update the ImageView with the correct drawable resource ID
+        diceImage.setImageResource(drawableResource)
 
-        // Update the screen with the dice roll.
-        val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = rollResult.toString()
+        // Update the content description
+        diceImage.contentDescription = rollResult.toString()
     }
 }
 
